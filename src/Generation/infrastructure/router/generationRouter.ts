@@ -3,5 +3,6 @@ import { GenerationController } from '../controller/GenerationController'
 const app = express.Router()
 
 
+const generationController = new GenerationController()
 
-app.get("/", GenerationController.getGenerationList)
+app.get("/", generationController.getGenerationList)

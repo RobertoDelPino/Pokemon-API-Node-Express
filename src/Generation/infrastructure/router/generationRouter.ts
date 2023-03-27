@@ -1,6 +1,7 @@
 import express from 'express'
+import { GenerationController } from '../controller/GenerationController'
 const app = express.Router()
 
 
 
-app.get("/", generationController.getGenerationList)
+app.get("/", GenerationController.getGenerationList)

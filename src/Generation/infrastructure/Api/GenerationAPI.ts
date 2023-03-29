@@ -1,31 +1,37 @@
-import { Generation } from "../../domain/entities/Generation";
-import { GenerationRepository } from "../../domain/repository/GenerationRepository";
+import {Generation} from "../../domain/entities/Generation";
+import {GenerationRepository} from "../../domain/repository/GenerationRepository";
+import {GenerationDetail} from "../../domain/entities/GenerationDetails";
 
-interface ResultApi{
-    name:string;
-    url: string;
+interface GenerationApiResponse {
+    results: Array<{
+        name:string;
+        url: string;
+    }>
+}
+
+interface GenerationDetailApiResponse {
+    id: number;
+    name: string;
+    types: Array<{
+        name: string;
+        url: string;
+    }>
 }
 
 export class GenerationAPI implements GenerationRepository{
+    private readonly generationEndpoint = 'https://pokeapi.co/api/v2/generation'
+
     async getGenerationList(): Promise<Generation[]> {
-        const response = await fetch("https://pokeapi.co/api/v2/generation");
-        const json = await response.json();
-        const generationList: Generation[] = json.results.map(({name}: ResultApi) => new Generation(name))
-        return generationList
+        const response = await fetch(this.generationEndpoint);
+        const data: GenerationApiResponse = await response.json();
+        return data.results.map(({name, url}) => new Generation(name, url))
     }
 
-    async getGenerationById(id: number): Promise<Generation> {
-        const response = await fetch("https://pokeapi.co/api/v2/generation");
-        const json = await response.json();
-        const filter = json.results.find(({url}: ResultApi) => {
-            const urlWithoutLastBar = url.slice(0, url.length - 1)
-            const indexOfPenultimateBarInUrl = urlWithoutLastBar.lastIndexOf("/")
-            const idFromUrl = urlWithoutLastBar.substring(indexOfPenultimateBarInUrl + 1)
-            return id == Number.parseInt(idFromUrl)
-        });
-        
-        const generation: Generation = new Generation(filter.name)
-        
-        return generation
+    async getGenerationDetailById(id: number): Promise<GenerationDetail> {
+        const response = await fetch(this.generationEndpoint + "/" + id);
+        const data: GenerationDetailApiResponse = await response.json();
+
+        return new GenerationDetail(data.id, data.name)
+
     }
 }

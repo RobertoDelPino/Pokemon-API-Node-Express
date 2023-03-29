@@ -9,7 +9,10 @@ export class PokemonService{
         return await this.pokemonRepository.getPokemonList();
     }
 
-    async getPokemonById(id: number): Promise<Pokemon[]>{
+    getPokemonById(id: number): Promise<Pokemon[]>{
+        if(id < 1){
+            throw new Error("Id must be bigger than 0")
+        }
         throw new Error("Not implemented yet")
     }
 }

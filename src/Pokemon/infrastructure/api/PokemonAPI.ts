@@ -6,7 +6,7 @@ export class PokemonAPI implements PokemonRepository{
         return [new Pokemon(1,"2",3,3)]
     }
 
-    async getPokemonById(): Promise<Pokemon> {
-        return new Pokemon(1,"2",3,3);
+    async getPokemonDetailsById(id: number): Promise<Pokemon> {
+        return new Pokemon(id,"2",3,3);
     }
 }

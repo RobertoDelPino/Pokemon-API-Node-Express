@@ -23,28 +23,29 @@ describe("GetPokemonById should", () => {
         const repo : PokemonAPI = new PokemonAPI()
         const service : PokemonService = new PokemonService(repo)
 
-        await expect(() => service.getPokemonById(id)).toThrow("Id must be bigger than 0")
+        await expect(() => service.getPokemonDetailsById(id)).rejects.toThrow("Id must be bigger than 0")
     })
 
     it('throw error if no pokemon was found', async () =>  {
         const id: number = 1;
 
         const repo : PokemonAPI = new PokemonAPI()
-        repo.getPokemonById = jest.fn().mockReturnValue(null);
+        repo.getPokemonDetailsById = jest.fn().mockReturnValue(null);
         const service : PokemonService = new PokemonService(repo)
 
-        await expect(() => service.getPokemonById(id)).toThrow("No pokemon was found")
+        await expect(() => service.getPokemonDetailsById(id)).rejects.toThrow("No pokemon was found")
     });
 
     it('give a pokemon with same id', async () => {
         const id: number = 1;
 
         const repo : PokemonAPI = new PokemonAPI()
+        repo.getPokemonDetailsById = jest.fn().mockReturnValue(new Pokemon(1,"", 1,1))
         const service : PokemonService = new PokemonService(repo)
 
-        const data = await service.getPokemonById(id)
+        const data: Pokemon = await service.getPokemonDetailsById(id)
 
-        expect(data).toBe(new Pokemon(1, "", 1, 1))
+        expect(data).toStrictEqual(new Pokemon(1, "", 1, 1))
     });
 
 })

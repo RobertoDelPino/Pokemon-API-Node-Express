@@ -9,10 +9,17 @@ export class PokemonService{
         return await this.pokemonRepository.getPokemonList();
     }
 
-    getPokemonById(id: number): Promise<Pokemon[]>{
+    async getPokemonDetailsById(id: number): Promise<Pokemon>{
         if(id < 1){
             throw new Error("Id must be bigger than 0")
         }
+
+        const pokemon: Pokemon = await this.pokemonRepository.getPokemonDetailsById(1);
+        // La llamada al repo debería devolver null si no encuentra nada
+        if(pokemon != null){
+            return pokemon
+        }
+
         throw new Error("No pokemon was found")
     }
 }

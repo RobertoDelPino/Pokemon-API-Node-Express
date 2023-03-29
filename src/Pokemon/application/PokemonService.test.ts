@@ -25,4 +25,15 @@ describe("GetPokemonById should", () => {
 
         await expect(() => service.getPokemonById(id)).toThrow("Id must be bigger than 0")
     })
+
+    it('throw error if no pokemon was found', async () =>  {
+        const id: number = 1;
+
+        const repo : PokemonAPI = new PokemonAPI()
+        repo.getPokemonById = jest.fn().mockReturnValue(null);
+        const service : PokemonService = new PokemonService(repo)
+
+        await expect(() => service.getPokemonById(id)).toThrow("No pokemon was found")
+    });
+
 })

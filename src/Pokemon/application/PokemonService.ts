@@ -13,6 +13,6 @@ export class PokemonService{
         if(id < 1){
             throw new Error("Id must be bigger than 0")
         }
-        throw new Error("Not implemented yet")
+        throw new Error("No pokemon was found")
     }
 }

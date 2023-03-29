@@ -8,4 +8,8 @@ export class PokemonService{
     async getPokemonList(): Promise<Pokemon[]>{
         return await this.pokemonRepository.getPokemonList();
     }
+
+    async getPokemonById(id: number): Promise<Pokemon[]>{
+        throw new Error("Not implemented yet")
+    }
 }

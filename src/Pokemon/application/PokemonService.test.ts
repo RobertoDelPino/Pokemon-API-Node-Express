@@ -13,3 +13,16 @@ describe("GetPokemonList should", () => {
         expect(data).toBe(pokemonList)
     })
 })
+
+
+
+describe("GetPokemonById should", () => {
+    it("throw error if id is less than 1", async () => {
+        // const pokemonList: Pokemon[] = [new Pokemon(1,"2",3,3), new Pokemon(2,"2",3,3)]
+        const repo : PokemonAPI = new PokemonAPI()
+        const service : PokemonService = new PokemonService(repo)
+        const data = await service.getPokemonById(0);
+
+        expect(data).toThrow("Id must be bigger than 0")
+    })
+})

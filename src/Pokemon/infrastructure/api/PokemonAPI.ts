@@ -22,6 +22,9 @@ export class PokemonAPI implements PokemonRepository{
     }
 
     async getPokemonDetailsById(idRequest: number): Promise<Pokemon> {
-        return new Pokemon(1,"2",3,idRequest)
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + idRequest)
+        const json: PokemonDetails = await response.json()
+        const {id, name, height, weight} = json
+        return new Pokemon(id, name, height, weight)
     }
 }

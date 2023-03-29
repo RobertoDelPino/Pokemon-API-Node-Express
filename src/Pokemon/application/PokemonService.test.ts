@@ -36,4 +36,15 @@ describe("GetPokemonById should", () => {
         await expect(() => service.getPokemonById(id)).toThrow("No pokemon was found")
     });
 
+    it('give a pokemon with same id', async () => {
+        const id: number = 1;
+
+        const repo : PokemonAPI = new PokemonAPI()
+        const service : PokemonService = new PokemonService(repo)
+
+        const data = await service.getPokemonById(id)
+
+        expect(data).toBe(new Pokemon(1, "", 1, 1))
+    });
+
 })

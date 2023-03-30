@@ -8,6 +8,18 @@ interface PokemonDetails {
     weight: number;
 }
 
+interface PokemonResult {
+    url: string;
+    name: string;
+}
+
+interface PokemonListByDetailsResult {
+    name: string;
+    pokemon: Array<{
+        pokemon: PokemonResult
+    }>
+}
+
 export class PokemonAPI implements PokemonRepository{
 
     async getPokemonList(): Promise<Pokemon[]> {
@@ -37,7 +49,24 @@ export class PokemonAPI implements PokemonRepository{
         return new Pokemon(id, name, height, weight)
     }
 
-    getPokemonListByType(type: string): Promise<Pokemon[]> {
-        throw new Error("Not implemented yet")
+    async getPokemonListByType(type: string): Promise<Pokemon[]> {
+
+        const maxLimit = 20;
+
+        const response = await fetch("https://pokeapi.co/api/v2/type/" + type)
+        const data: PokemonListByDetailsResult = await response.json()
+        console.log(data.name)
+        const pokemonArray: Pokemon[] = [];
+
+        for (let i = 0; i < maxLimit; i++){
+            const urlSplit = data.pokemon[i].pokemon.url.split("/");
+            const idPokemon = Number.parseInt(urlSplit[urlSplit.length - 2])
+            const {id, name, height, weight}: Pokemon = await this.getPokemonDetailsById(idPokemon)
+            pokemonArray.push(new Pokemon(id, name, height, weight))
+        }
+
+        console.log(pokemonArray)
+
+        return pokemonArray
     }
 }

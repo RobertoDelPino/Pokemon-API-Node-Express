@@ -26,8 +26,13 @@ export class PokemonController{
         }
     }
 
-    async getPokemonListByTypeFromAPI(_req: Request, res: Response){
-        const pokemonList: Pokemon[] = await this.pokemonService.getPokemonListByType()
-        res.status(200).json({"PokemonList": pokemonList})
+    async getPokemonListByTypeFromAPI(req: Request, res: Response){
+        const type = req.params.type
+        try{
+            const pokemonList: Pokemon[] = await this.pokemonService.getPokemonListByType(type)
+            res.status(200).json({"PokemonList": pokemonList})
+        }catch (error: any){
+            res.status(400).json({"error": error.message})
+        }
     }
 }

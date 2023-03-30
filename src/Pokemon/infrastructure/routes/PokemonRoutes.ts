@@ -11,5 +11,6 @@ const pokemonService = new PokemonService(pokemonRepository)
 const pokemonController = new PokemonController(pokemonService)
 
 pokemonRouter.get("/type", pokemonController.getPokemonListByTypeFromAPI.bind(pokemonController))
+pokemonRouter.get("/type/:type", pokemonController.getPokemonListByTypeFromAPI.bind(pokemonController))
 pokemonRouter.get("/", pokemonController.getPokemonListFromAPI.bind(pokemonController))
 pokemonRouter.get("/:id", pokemonController.getPokemonWithId.bind(pokemonController))

@@ -11,8 +11,9 @@ import {Pokemon} from "../../domain/entities/Pokemon";
 describe("getPokemonList should", () => {
     it("give a list of pokemon", async () => {
         const api: PokemonAPI = new PokemonAPI();
-        const data: Pokemon[] = await  api.getPokemonList();
-        expect(data[0].name)
+        const data: Pokemon[] = await api.getPokemonList();
+
+        expect(data.length).toBe(20)
     })
 })
 

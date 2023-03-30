@@ -7,7 +7,7 @@ afterEach(() => {
     server.close()
 })
 
-describe("/Pokemon should", () => {
+describe("/pokemon should", () => {
     it("give a list of pokemon", async () => {
         const response = await request(server)
             .get("/api/pokemon")
@@ -17,7 +17,7 @@ describe("/Pokemon should", () => {
     })
 })
 
-describe("/Pokemon/:id should", () => {
+describe("/pokemon/:id should", () => {
     it("give one pokemon", async () => {
             const response = await request(server)
             .get("/api/pokemon/1")
@@ -48,6 +48,16 @@ describe("/Pokemon/:id should", () => {
             .set('Accept', 'application/json');
 
         expect(response.body.error).toBe("Id must be a number")
+    })
+})
+
+describe("/pokemon/type should", () => {
+    it("give pokemon list from default type('grass')", async () => {
+        const response = await request(server)
+            .get("/api/pokemon/type")
+            .set('Accept', 'application/json');
+
+        expect(response.body.PokemonList.length).toEqual(20)
     })
 })
 

@@ -55,7 +55,6 @@ export class PokemonAPI implements PokemonRepository{
 
         const response = await fetch("https://pokeapi.co/api/v2/type/" + type)
         const data: PokemonListByDetailsResult = await response.json()
-        console.log(data.name)
         const pokemonArray: Pokemon[] = [];
 
         for (let i = 0; i < maxLimit; i++){
@@ -64,8 +63,6 @@ export class PokemonAPI implements PokemonRepository{
             const {id, name, height, weight}: Pokemon = await this.getPokemonDetailsById(idPokemon)
             pokemonArray.push(new Pokemon(id, name, height, weight))
         }
-
-        console.log(pokemonArray)
 
         return pokemonArray
     }

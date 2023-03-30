@@ -67,7 +67,7 @@ describe("GetPokemonListByType should", () => {
         const type = "";
 
         const repo : PokemonAPI = new PokemonAPI()
-
+        repo.getPokemonListByType = jest.fn().mockReturnValue([new Pokemon(1,"bulbasaur", 7,69)])
         const service : PokemonService = new PokemonService(repo)
 
         const data = await service.getPokemonListByType(type);

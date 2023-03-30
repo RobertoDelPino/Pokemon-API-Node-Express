@@ -62,4 +62,15 @@ describe("GetPokemonListByType should", () => {
         expect(data).toStrictEqual([new Pokemon(1,"", 1,1)])
 
     })
+
+    it("use 'grass' as default if no type is given", async () => {
+        const type = "";
+
+        const repo : PokemonAPI = new PokemonAPI()
+
+        const service : PokemonService = new PokemonService(repo)
+
+        const data = await service.getPokemonListByType(type);
+        expect(data).toStrictEqual([new Pokemon(1,"bulbasaur", 7,69)])
+    })
 })

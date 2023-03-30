@@ -33,6 +33,14 @@ describe("/Pokemon/:id should", () => {
 
         expect(response.body.error).toBe("Id must be bigger than 0")
     })
+
+    it("throw error message and status 400 when no pokemon was found", async () => {
+        const response = await request(server)
+            .get("/api/pokemon/12222222")
+            .set('Accept', 'application/json');
+
+        expect(response.body.error).toBe("No pokemon was found")
+    })
 })
 
 

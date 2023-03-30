@@ -59,6 +59,14 @@ describe("/pokemon/type should", () => {
 
         expect(response.body.PokemonList.length).toEqual(20)
     })
+
+    it("give error message and status 400 if type is not a correct type", async () => {
+        const response = await request(server)
+            .get("/api/pokemon/type/asasdasd")
+            .set('Accept', 'application/json');
+
+        expect(response.body.error).toEqual("asasdasd is not a correct pokemon type")
+    })
 })
 
 

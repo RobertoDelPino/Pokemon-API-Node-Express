@@ -49,3 +49,16 @@ describe("GetPokemonById should", () => {
     });
 
 })
+
+describe("GetPokemonListByType should", () => {
+    it("give a list of pokemon by type", () => {
+        const type = "grass";
+
+        const repo : PokemonAPI = new PokemonAPI()
+        const service : PokemonService = new PokemonService(repo)
+
+        const data = service.getPokemonListByType(type);
+        expect(data).toBe([new Pokemon(1,"", 1,1)])
+
+    })
+})

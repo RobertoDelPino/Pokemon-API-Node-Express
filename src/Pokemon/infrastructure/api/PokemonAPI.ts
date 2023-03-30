@@ -36,4 +36,8 @@ export class PokemonAPI implements PokemonRepository{
         const {id, name, height, weight} = json
         return new Pokemon(id, name, height, weight)
     }
+
+    getPokemonListByType(type: string): Promise<Pokemon[]> {
+        throw new Error("Not implemented yet")
+    }
 }

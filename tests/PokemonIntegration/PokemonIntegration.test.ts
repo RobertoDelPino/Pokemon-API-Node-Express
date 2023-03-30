@@ -57,8 +57,6 @@ describe("/pokemon/type should", () => {
             .get("/api/pokemon/type")
             .set('Accept', 'application/json');
 
-        console.log(response.body)
-
         expect(response.body.PokemonList.length).toEqual(20)
     })
 })

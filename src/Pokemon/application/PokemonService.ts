@@ -24,7 +24,6 @@ export class PokemonService{
     }
 
     async getPokemonListByType(type: string = "grass"): Promise<Pokemon[]>{
-        console.log(type)
         return await this.pokemonRepository.getPokemonListByType(type)
     }
 }

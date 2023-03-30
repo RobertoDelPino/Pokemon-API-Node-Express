@@ -47,4 +47,11 @@ describe("getPokemonListByType should", () => {
 
         expect(data).toBeTruthy()
     })
+
+    it("throw error message if type is not a correct type", async () => {
+        const type = "adasdasd"
+        const api: PokemonAPI = new PokemonAPI();
+
+        await expect(() =>  api.getPokemonListByType(type)).rejects.toThrow(type + " is not a correct pokemon type")
+    })
 })

@@ -15,6 +15,9 @@ export class PokemonAPI implements PokemonRepository{
     }
 
     async getPokemonDetailsById(idRequest: number): Promise<Pokemon> {
+        if(idRequest < 1){
+            throw new Error("Id must be bigger than 0")
+        }
 
         const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + idRequest)
         if(!response.ok){

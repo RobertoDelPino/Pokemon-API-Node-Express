@@ -24,4 +24,10 @@ describe("getPokemonDetailsById should", () => {
         const pokemon: Pokemon = await api.getPokemonDetailsById(1);
         expect(pokemon).toStrictEqual(pokemonExpected)
     })
+
+    it("throw error message if no pokemon have same id", async () => {
+        const api: PokemonAPI = new PokemonAPI();
+
+        await expect(() =>  api.getPokemonDetailsById(122222)).rejects.toThrow("No pokemon was found")
+    })
 })

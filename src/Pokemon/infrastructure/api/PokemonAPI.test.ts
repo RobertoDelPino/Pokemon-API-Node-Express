@@ -30,4 +30,10 @@ describe("getPokemonDetailsById should", () => {
 
         await expect(() =>  api.getPokemonDetailsById(122222)).rejects.toThrow("No pokemon was found")
     })
+
+    it("throw error message if id is less than 1", async () => {
+        const api: PokemonAPI = new PokemonAPI();
+
+        await expect(() =>  api.getPokemonDetailsById(0)).rejects.toThrow("Id must be bigger than 0")
+    })
 })

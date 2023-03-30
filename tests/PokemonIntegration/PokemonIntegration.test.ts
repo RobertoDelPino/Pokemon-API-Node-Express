@@ -41,6 +41,14 @@ describe("/Pokemon/:id should", () => {
 
         expect(response.body.error).toBe("No pokemon was found")
     })
+
+    it("throw error message and status 400 when id is not a number", async () => {
+        const response = await request(server)
+            .get("/api/pokemon/numero")
+            .set('Accept', 'application/json');
+
+        expect(response.body.error).toBe("Id must be a number")
+    })
 })
 
 

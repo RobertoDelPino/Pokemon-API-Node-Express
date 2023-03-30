@@ -54,6 +54,9 @@ export class PokemonAPI implements PokemonRepository{
         const maxLimit = 20;
 
         const response = await fetch("https://pokeapi.co/api/v2/type/" + type)
+        if(!response.ok){
+            throw new Error(type + " is not a correct pokemon type")
+        }
         const data: PokemonListByDetailsResult = await response.json()
         const pokemonArray: Pokemon[] = [];
 

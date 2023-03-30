@@ -51,14 +51,15 @@ describe("GetPokemonById should", () => {
 })
 
 describe("GetPokemonListByType should", () => {
-    it("give a list of pokemon by type", () => {
+    it("give a list of pokemon by type", async () => {
         const type = "grass";
 
         const repo : PokemonAPI = new PokemonAPI()
+        repo.getPokemonListByType = jest.fn().mockReturnValue([new Pokemon(1,"", 1,1)])
         const service : PokemonService = new PokemonService(repo)
 
-        const data = service.getPokemonListByType(type);
-        expect(data).toBe([new Pokemon(1,"", 1,1)])
+        const data = await service.getPokemonListByType(type);
+        expect(data).toStrictEqual([new Pokemon(1,"", 1,1)])
 
     })
 })

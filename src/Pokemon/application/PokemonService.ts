@@ -24,6 +24,6 @@ export class PokemonService{
     }
 
     async getPokemonListByType(type: string): Promise<Pokemon[]>{
-        throw new Error("Not implemented yet")
+        return await this.pokemonRepository.getPokemonListByType(type)
     }
 }

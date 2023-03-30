@@ -1,5 +1,6 @@
 import {PokemonAPI} from "./PokemonAPI";
 import {Pokemon} from "../../domain/entities/Pokemon";
+import {server} from "../../../index";
 
 /*
 *
@@ -9,6 +10,11 @@ import {Pokemon} from "../../domain/entities/Pokemon";
 */
 
 describe("getPokemonList should", () => {
+
+    afterEach(() => {
+        server.close()
+    })
+
     it("give a list of pokemon", async () => {
         const api: PokemonAPI = new PokemonAPI();
         const data: Pokemon[] = await api.getPokemonList();
@@ -18,8 +24,13 @@ describe("getPokemonList should", () => {
 })
 
 describe("getPokemonDetailsById should", () => {
+
+    afterEach(() => {
+        server.close()
+    })
+
     it("give details of pokemon", async () => {
-        const pokemonExpected: Pokemon = new Pokemon(1,"bulbasaur", 7, 69 )
+        const pokemonExpected: Pokemon = new Pokemon(1,"bulbasaur", 7, 69, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" )
 
         const api: PokemonAPI = new PokemonAPI();
         const pokemon: Pokemon = await api.getPokemonDetailsById(1);
@@ -40,6 +51,11 @@ describe("getPokemonDetailsById should", () => {
 })
 
 describe("getPokemonListByType should", () => {
+
+    afterEach(() => {
+        server.close()
+    })
+
     it("give a list of pokemon by type", async () => {
         const type = "grass"
         const api: PokemonAPI = new PokemonAPI();

@@ -15,14 +15,14 @@ export class PokemonController{
         const id = Number.parseInt(req.params.id)
 
         if (isNaN(id)){
-            res.status(400).json({"error": "Id must be a number"})
+            return res.status(400).json({"error": "Id must be a number"})
         }
 
         try {
             const pokemon: Pokemon = await this.pokemonService.getPokemonDetailsById(id)
-            res.status(200).json({"pokemon": pokemon})
+            return res.status(200).json({"pokemon": pokemon})
         }catch (error: any){
-            res.status(400).json({"error": error.message})
+            return res.status(400).json({"error": error.message})
         }
     }
 

@@ -4,7 +4,7 @@ import {Pokemon} from "../domain/entities/Pokemon";
 
 describe("GetPokemonList should", () => {
     it("give a list of pokemons", async () => {
-        const pokemonList: Pokemon[] = [new Pokemon(1,"2",3,3), new Pokemon(2,"2",3,3)]
+        const pokemonList: Pokemon[] = [new Pokemon(1,"2",3,3, ""), new Pokemon(2,"2",3,3, "")]
         const repo : PokemonAPI = new PokemonAPI()
         const service : PokemonService = new PokemonService(repo)
         repo.getPokemonList = jest.fn().mockReturnValue(pokemonList)
@@ -40,12 +40,12 @@ describe("GetPokemonById should", () => {
         const id: number = 1;
 
         const repo : PokemonAPI = new PokemonAPI()
-        repo.getPokemonDetailsById = jest.fn().mockReturnValue(new Pokemon(1,"", 1,1))
+        repo.getPokemonDetailsById = jest.fn().mockReturnValue(new Pokemon(1,"", 1,1, ""))
         const service : PokemonService = new PokemonService(repo)
 
         const data: Pokemon = await service.getPokemonDetailsById(id)
 
-        expect(data).toStrictEqual(new Pokemon(1, "", 1, 1))
+        expect(data).toStrictEqual(new Pokemon(1, "", 1, 1, ""))
     });
 
 })
@@ -55,11 +55,11 @@ describe("GetPokemonListByType should", () => {
         const type = "grass";
 
         const repo : PokemonAPI = new PokemonAPI()
-        repo.getPokemonListByType = jest.fn().mockReturnValue([new Pokemon(1,"", 1,1)])
+        repo.getPokemonListByType = jest.fn().mockReturnValue([new Pokemon(1,"", 1,1, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")])
         const service : PokemonService = new PokemonService(repo)
 
         const data = await service.getPokemonListByType(type);
-        expect(data).toStrictEqual([new Pokemon(1,"", 1,1)])
+        expect(data).toStrictEqual([new Pokemon(1,"", 1,1, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")])
 
     })
 
@@ -67,10 +67,10 @@ describe("GetPokemonListByType should", () => {
         const type = "";
 
         const repo : PokemonAPI = new PokemonAPI()
-        repo.getPokemonListByType = jest.fn().mockReturnValue([new Pokemon(1,"bulbasaur", 7,69)])
+        repo.getPokemonListByType = jest.fn().mockReturnValue([new Pokemon(1,"bulbasaur", 7,69, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")])
         const service : PokemonService = new PokemonService(repo)
 
         const data = await service.getPokemonListByType(type);
-        expect(data).toStrictEqual([new Pokemon(1,"bulbasaur", 7,69)])
+        expect(data).toStrictEqual([new Pokemon(1,"bulbasaur", 7,69, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")])
     })
 })

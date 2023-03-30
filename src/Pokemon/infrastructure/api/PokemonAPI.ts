@@ -6,6 +6,13 @@ interface PokemonDetails {
     name: string;
     height: number;
     weight: number;
+    sprites: {
+        other: {
+            "official-artwork": {
+                front_default: string;
+            };
+        };
+    };
 }
 
 interface PokemonResult {
@@ -13,7 +20,7 @@ interface PokemonResult {
     name: string;
 }
 
-interface PokemonListByDetailsResult {
+interface PokemonListByTypeDetailResult {
     name: string;
     pokemon: Array<{
         pokemon: PokemonResult
@@ -45,8 +52,8 @@ export class PokemonAPI implements PokemonRepository{
             throw new Error("No pokemon was found")
         }
         const json: PokemonDetails = await response.json()
-        const {id, name, height, weight} = json
-        return new Pokemon(id, name, height, weight)
+        const {id, name, height, weight, sprites} = json
+        return new Pokemon(id, name, height, weight, sprites.other["official-artwork"].front_default)
     }
 
     async getPokemonListByType(type: string): Promise<Pokemon[]> {
@@ -57,14 +64,14 @@ export class PokemonAPI implements PokemonRepository{
         if(!response.ok){
             throw new Error(type + " is not a correct pokemon type")
         }
-        const data: PokemonListByDetailsResult = await response.json()
+        const data: PokemonListByTypeDetailResult = await response.json()
         const pokemonArray: Pokemon[] = [];
 
         for (let i = 0; i < maxLimit; i++){
             const urlSplit = data.pokemon[i].pokemon.url.split("/");
             const idPokemon = Number.parseInt(urlSplit[urlSplit.length - 2])
-            const {id, name, height, weight}: Pokemon = await this.getPokemonDetailsById(idPokemon)
-            pokemonArray.push(new Pokemon(id, name, height, weight))
+            const {id, name, height, weight, urlImage }: Pokemon = await this.getPokemonDetailsById(idPokemon)
+            pokemonArray.push(new Pokemon(id, name, height, weight, urlImage))
         }
 
         return pokemonArray

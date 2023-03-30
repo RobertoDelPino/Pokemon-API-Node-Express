@@ -23,7 +23,7 @@ describe("/pokemon/:id should", () => {
             .get("/api/pokemon/1")
             .set('Accept', 'application/json');
 
-        expect(response.body.pokemon).toEqual(new Pokemon(1,"bulbasaur",7,69))
+        expect(response.body.pokemon).toEqual(new Pokemon(1,"bulbasaur",7,69, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"))
     })
 
     it("throw error message and status 400 when id less than 0", async () => {

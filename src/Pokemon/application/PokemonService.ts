@@ -23,10 +23,8 @@ export class PokemonService{
         throw new Error("No pokemon was found")
     }
 
-    async getPokemonListByType(type: string): Promise<Pokemon[]>{
-        if(type == ""){
-            type = "grass"
-        }
+    async getPokemonListByType(type: string = "grass"): Promise<Pokemon[]>{
+        console.log(type)
         return await this.pokemonRepository.getPokemonListByType(type)
     }
 }

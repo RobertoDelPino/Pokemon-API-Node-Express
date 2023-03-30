@@ -11,7 +11,16 @@ interface PokemonDetails {
 export class PokemonAPI implements PokemonRepository{
 
     async getPokemonList(): Promise<Pokemon[]> {
-        return [new Pokemon(1,"2",3,3)]
+
+        const maxPokemon: number = 20;
+        const pokemonArray: Pokemon[] = [];
+
+        for (let id = 1; id <= maxPokemon; id++) {
+            const pokemon: Pokemon = await this.getPokemonDetailsById(id);
+            pokemonArray.push(pokemon)
+        }
+
+        return pokemonArray
     }
 
     async getPokemonDetailsById(idRequest: number): Promise<Pokemon> {

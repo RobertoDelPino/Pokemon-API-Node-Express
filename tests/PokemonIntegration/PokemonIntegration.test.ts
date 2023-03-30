@@ -19,11 +19,19 @@ describe("/Pokemon should", () => {
 
 describe("/Pokemon/:id should", () => {
     it("give one pokemon", async () => {
-        const response = await request(server)
+            const response = await request(server)
             .get("/api/pokemon/1")
             .set('Accept', 'application/json');
 
         expect(response.body.pokemon).toEqual(new Pokemon(1,"bulbasaur",7,69))
+    })
+
+    it("throw error message and status 400 when id less than 0", async () => {
+        const response = await request(server)
+            .get("/api/pokemon/0")
+            .set('Accept', 'application/json');
+
+        expect(response.body.error).toBe("Id must be bigger than 0")
     })
 })
 

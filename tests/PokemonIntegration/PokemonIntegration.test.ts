@@ -12,6 +12,6 @@ describe("/Pokemon should", () => {
             .get("/api/pokemon")
             .set('Accept', 'application/json');
 
-        expect(response.body.pokemonList.length).toBe(20)
+        expect(response.body.PokemonList.length).toBe(20)
     })
 })

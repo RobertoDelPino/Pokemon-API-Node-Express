@@ -38,3 +38,13 @@ describe("getPokemonDetailsById should", () => {
         await expect(() =>  api.getPokemonDetailsById(0)).rejects.toThrow("Id must be bigger than 0")
     })
 })
+
+describe("getPokemonListByType should", () => {
+    it("give a list of pokemon by type", async () => {
+        const type = "grass"
+        const api: PokemonAPI = new PokemonAPI();
+        const data: Pokemon[] = await api.getPokemonListByType(type);
+
+        expect(data).toBeTruthy()
+    })
+})

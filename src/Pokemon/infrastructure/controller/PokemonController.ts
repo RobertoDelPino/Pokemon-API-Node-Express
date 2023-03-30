@@ -13,7 +13,12 @@ export class PokemonController{
 
     async getPokemonWithId(req: Request, res: Response){
         const id = Number.parseInt(req.params.id)
-        const pokemon: Pokemon = await this.pokemonService.getPokemonDetailsById(id)
-        res.status(200).json({"pokemon": pokemon})
+
+        try {
+            const pokemon: Pokemon = await this.pokemonService.getPokemonDetailsById(id)
+            res.status(200).json({"pokemon": pokemon})
+        }catch (error: any){
+            res.status(400).json({"error": error.message})
+        }
     }
 }

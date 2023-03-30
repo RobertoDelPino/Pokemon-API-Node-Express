@@ -14,8 +14,8 @@ export class PokemonService{
             throw new Error("Id must be bigger than 0")
         }
 
-        const pokemon: Pokemon = await this.pokemonRepository.getPokemonDetailsById(1);
-        // La llamada al repo debería devolver null si no encuentra nada
+        const pokemon: Pokemon = await this.pokemonRepository.getPokemonDetailsById(id);
+        // La llamada al repo debería devolver null/throw error si no encuentra nada
         if(pokemon != null){
             return pokemon
         }

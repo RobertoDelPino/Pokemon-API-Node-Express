@@ -27,7 +27,7 @@ describe("GetPokemonById should", () => {
     })
 
     it('throw error if no pokemon was found', async () =>  {
-        const id: number = 1;
+        const id: number = 12222222;
 
         const repo : PokemonAPI = new PokemonAPI()
         repo.getPokemonDetailsById = jest.fn().mockReturnValue(null);
